@@ -2,6 +2,23 @@
 <div class="row">
   <div class="col-md-12">
     <%= form_for @article, html: {role: "form"} do |f| %>
+      <% if @article.errors.any? %>
+        <div class="card offset-md-1 border-danger mb-3">
+          <div class="card-header">
+            <h5 class="card-title">
+              <%= pluralize(@article.errors.count, "error") %>
+              prohibited this article from being saved:
+            </h5>
+            <div class="card-body text-danger">
+              <ul>
+                <% @article.errors.full_messages.each do |msg| %>
+                  <li><%= msg %></li>
+                <%end %>
+              </ul>
+            </div>
+          </div>
+        </div>
+      <% end %>
       <div class="form-group row">
         <div class="control-label col-md-1">
           <%= f.label :title %>
